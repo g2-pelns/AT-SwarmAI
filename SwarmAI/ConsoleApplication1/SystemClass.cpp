@@ -281,7 +281,6 @@ void SystemClass::Time()
 	INT64 currentTime;
 	INT64 elapsedTicks;
 
-
 	// Query the current time.
 	QueryPerformanceCounter((LARGE_INTEGER*)&currentTime);
 

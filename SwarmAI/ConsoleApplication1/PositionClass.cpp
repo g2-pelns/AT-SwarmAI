@@ -13,14 +13,14 @@ PositionClass::PositionClass()
 
 	m_frameTime = 0.0f;
 
-	m_forwardSpeed = 0.0f;
-	m_backwardSpeed = 0.0f;
-	m_upwardSpeed = 0.0f;
-	m_downwardSpeed = 0.0f;
-	m_leftTurnSpeed = 0.0f;
-	m_rightTurnSpeed = 0.0f;
-	m_lookUpSpeed = 0.0f;
-	m_lookDownSpeed = 0.0f;
+	m_forwardSpeed = 1.0f;
+	m_backwardSpeed = 1.0f;
+	m_upwardSpeed = 1.0f;
+	m_downwardSpeed = 1.0f;
+	m_leftTurnSpeed = 1.0f;
+	m_rightTurnSpeed = 1.0f;
+	m_lookUpSpeed = 1.0f;
+	m_lookDownSpeed = 1.0f;
 }
 
 
