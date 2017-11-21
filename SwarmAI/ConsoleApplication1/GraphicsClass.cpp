@@ -45,8 +45,6 @@ bool GraphicsClass::Init(int screenWidth, int screenHeight, HWND hwnd)
 
 	// Set the initial position of the camera.
 	m_Camera->SetPosition(0.0f, 0.0f, -1.0f);
-	m_Camera->Render();
-	m_Camera->RenderBaseViewMatrix();
 
 	//Create pos object
 	m_Pos = new PositionClass;
@@ -67,7 +65,7 @@ bool GraphicsClass::Init(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Initialize the model object.
-	result = m_Model->Init(m_Direct3D->GetDevice());
+	result = m_Model->Init(m_Direct3D->GetDevice(), "Cube.txt");
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
@@ -191,9 +189,13 @@ bool GraphicsClass::Render()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, baseViewMatrix, orthoMatrix;
 	bool result;
-
+	
+	// Clear the buffers to begin the scene.
+	m_Direct3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
+	
 	// Generate the view matrix based on the camera's position.
 	m_Camera->Render();
+	m_Camera->RenderBaseViewMatrix();
 
 	// Get the world, view, and projection matrices from the camera and d3d objects.
 	m_Direct3D->GetWorldMatrix(worldMatrix);
@@ -202,8 +204,7 @@ bool GraphicsClass::Render()
 	m_Camera->GetViewMatrix(baseViewMatrix);
 	m_Direct3D->GetOrthoMatrix(orthoMatrix);
 
-	// Clear the buffers to begin the scene.
-	m_Direct3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
+
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_Model->Render(m_Direct3D->GetDeviceContext());
