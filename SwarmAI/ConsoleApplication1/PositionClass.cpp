@@ -1,5 +1,5 @@
 #include "positionclass.h"
-
+#include <Windows.h>
 
 PositionClass::PositionClass()
 {
@@ -90,6 +90,7 @@ void PositionClass::MoveForward(bool keydown)
 		{
 			m_forwardSpeed = m_frameTime * 50.0f;
 		}
+		//OutputDebugStringW(L"MoveForward");
 	}
 	else
 	{
@@ -126,6 +127,7 @@ void PositionClass::MoveBackward(bool keydown)
 		{
 			m_backwardSpeed = m_frameTime * 50.0f;
 		}
+		//OutputDebugStringW(L"MoveBack");
 	}
 	else
 	{
@@ -159,6 +161,7 @@ void PositionClass::MoveUpward(bool keydown)
 		{
 			m_upwardSpeed = m_frameTime * 15.0f;
 		}
+		//OutputDebugStringW(L"MoveUp");
 	}
 	else
 	{
@@ -188,6 +191,7 @@ void PositionClass::MoveDownward(bool keydown)
 		{
 			m_downwardSpeed = m_frameTime * 15.0f;
 		}
+		//OutputDebugStringW(L"MoveDown");
 	}
 	else
 	{
@@ -217,6 +221,7 @@ void PositionClass::TurnLeft(bool keydown)
 		{
 			m_leftTurnSpeed = m_frameTime * 150.0f;
 		}
+		//OutputDebugStringW(L"TurnLeft");
 	}
 	else
 	{
@@ -252,6 +257,7 @@ void PositionClass::TurnRight(bool keydown)
 		{
 			m_rightTurnSpeed = m_frameTime * 150.0f;
 		}
+		//OutputDebugStringW(L"MoveRight");
 	}
 	else
 	{
@@ -287,6 +293,7 @@ void PositionClass::LookUpward(bool keydown)
 		{
 			m_lookUpSpeed = m_frameTime * 75.0f;
 		}
+		//OutputDebugStringW(L"LookUp");
 	}
 	else
 	{
@@ -322,6 +329,7 @@ void PositionClass::LookDownward(bool keydown)
 		{
 			m_lookDownSpeed = m_frameTime * 75.0f;
 		}
+		//OutputDebugStringW(L"LookDown");
 	}
 	else
 	{

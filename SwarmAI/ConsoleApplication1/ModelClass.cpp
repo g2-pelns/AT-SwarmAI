@@ -73,6 +73,61 @@ void ModelClass::ShutDownBuffers()
 	return;
 }
 
+bool ModelClass::LoadModel(char* fileName)
+{
+	ifstream fin;
+	char input;
+	int i;
+
+	//Open the model file
+	fin.open(fileName);
+
+	//if cound not open the file then exit
+	if (fin.fail())
+	{
+		return false;
+	}
+
+	//Read up to the value of vertex count
+	fin.get(input);
+	while (input != ':')
+	{
+		fin.get(input);
+	}
+
+	//Read in the vertex count
+	m_vertexCount = 36;
+
+	//Set the number of indices to be the same as the vertex count
+	m_indexCount = m_vertexCount;
+
+	//Create the model using the vertex count that was read in
+	m_model = new ModelType[m_vertexCount];
+	if (!m_model)
+	{
+		return false;
+	}
+
+	////Read up to the beginning of the data
+	//fin.get(input);
+	//while (input != ':')
+	//{
+	//	fin.get(input);
+	//}
+	//fin.get(input);
+	//fin.get(input);
+
+	//Read the vertex data
+	for (i = 0; i < m_vertexCount; i++)
+	{
+		fin >> m_model[i].x >> m_model[i].y >> m_model[i].z;
+	}
+
+	//Close the model file
+	fin.close();
+	return true;
+}
+
 bool ModelClass::InitBuffers(ID3D11Device* device)
 {
 	int i;
@@ -83,10 +138,10 @@ bool ModelClass::InitBuffers(ID3D11Device* device)
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 
 	//// Set the number of vertices in the vertex array.
-	//m_vertexCount = 36;
+	m_vertexCount = 36;
 
 	//// Set the number of indices in the index array.
-	//m_indexCount = 36;
+	m_indexCount = 36;
 
 	// Create the vertex array.
 	vertices = new VertexType[m_vertexCount];
@@ -181,61 +236,6 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext* deviceContext)
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	return;
-}
-
-bool ModelClass::LoadModel(char* fileName)
-{
-	ifstream fin;
-	char input;
-	int i;
-
-	//Open the model file
-	fin.open(fileName);
-
-	//if cound not open the file then exit
-	if (fin.fail())
-	{
-		return false;
-	}
-
-	//Read up to the value of vertex count
-	fin.get(input);
-	while (input != ':')
-	{
-		fin.get(input);
-	}
-
-	//Read in the vertex count
-	m_vertexCount = 36;
-
-	//Set the number of indices to be the same as the vertex count
-	m_indexCount = m_vertexCount;
-
-	//Create the model using the vertex count that was read in
-	m_model = new ModelType[m_vertexCount];
-	if (!m_model)
-	{
-		return false;
-	}
-
-	//Read up to the beginning of the data
-	fin.get(input);
-	while (input != ':')
-	{
-		fin.get(input);
-	}
-	fin.get(input);
-	fin.get(input);
-
-	//Read the vertex data
-	for (i = 0; i < m_vertexCount; i++)
-	{
-		fin >> m_model[i].x >> m_model[i].y >> m_model[i].z;
-	}
-
-	//Close the model file
-	fin.close();
-	return true;
 }
 
 void ModelClass::ReleaseModel()

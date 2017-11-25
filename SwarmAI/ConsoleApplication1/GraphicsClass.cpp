@@ -1,4 +1,5 @@
 #include "GraphicsClass.h"
+#include <string>
 
 GraphicsClass::GraphicsClass()
 {
@@ -36,15 +37,7 @@ bool GraphicsClass::Init(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
-	// Create the camera object.
-	m_Camera = new CameraClass;
-	if (!m_Camera)
-	{
-		return false;
-	}
 
-	// Set the initial position of the camera.
-	m_Camera->SetPosition(0.0f, 0.0f, -1.0f);
 
 	//Create pos object
 	m_Pos = new PositionClass;
@@ -54,8 +47,19 @@ bool GraphicsClass::Init(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	//Set the initial pos and rot
-	m_Pos->SetPos(0.0f, 0.0f, -1.0f);
-	m_Pos->SetRot(0.0f, 0.0f, 0.0f);
+	m_Pos->SetPos(-2.0f, -2.0f, -2.0f);
+	m_Pos->SetRot(0.0f, 1.0f, 0.0f);
+
+	// Create the camera object.
+	m_Camera = new CameraClass;
+	if (!m_Camera)
+	{
+		return false;
+	}
+
+	// Set the initial position of the camera.
+	m_Camera->SetPosition(-2.0f, -2.0f, -2.0f);
+	m_Camera->SetRotation(0.0f, 1.0f, 0.0f);
 
 	// Create the model object.
 	m_Model = new ModelClass;
@@ -87,47 +91,6 @@ bool GraphicsClass::Init(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 	return true;
-}
-
-void GraphicsClass::HandleCamMovement(InputClass* input, float frameTime)
-{
-	bool keyDown;
-	float posX, posY, posZ, rotX, rotY, rotZ;
-
-	//Set the frame time for calculating the updated position
-	m_Pos->SetFrameTime(frameTime);
-
-	// Handle the input.
-	keyDown = input->IsLeftPressed();
-	m_Pos->TurnLeft(keyDown);
-
-	keyDown = input->IsRightPressed();
-	m_Pos->TurnRight(keyDown);
-
-	keyDown = input->IsUpPressed();
-	m_Pos->MoveForward(keyDown);
-
-	keyDown = input->IsDownPressed();
-	m_Pos->MoveBackward(keyDown);
-
-	keyDown = input->IsAPressed();
-	m_Pos->MoveUpward(keyDown);
-
-	keyDown = input->IsZPressed();
-	m_Pos->MoveDownward(keyDown);
-
-	keyDown = input->IsPgUpPressed();
-	m_Pos->LookUpward(keyDown);
-
-	keyDown = input->IsPgDownPressed();
-	m_Pos->LookDownward(keyDown);
-
-	// Get the view point position/rotation.
-	m_Pos->GetPos(posX, posY, posZ);
-	m_Pos->GetRot(rotX, rotY, rotZ);
-
-	m_Camera->SetPosition(posX, posY, posZ);
-	m_Camera->SetRotation(rotX, rotY, rotZ);
 }
 
 void GraphicsClass::ShutDown()
@@ -177,13 +140,73 @@ bool GraphicsClass::Frame(InputClass* Input, float frameTime)
 
 	HandleCamMovement(Input, frameTime);
 	//Render the graphics scene
-	result = Render();
+	/*result = Render();
 	if (!result)
 	{
 		return false;
-	}
+	}*/
 	return true;
 }
+
+void GraphicsClass::HandleCamMovement(InputClass* input, float frameTime)
+{
+	bool result;
+	bool keyDown;
+	bool testKey = true;
+	float posX, posY, posZ, rotX, rotY, rotZ;
+
+	//Set the frame time for calculating the updated position
+	m_Pos->SetFrameTime(frameTime);
+
+	// Handle the input.
+	keyDown = input->IsLeftPressed();
+	m_Pos->TurnLeft(keyDown);
+
+	keyDown = input->IsRightPressed();
+	m_Pos->TurnRight(keyDown);
+
+	keyDown = input->IsUpPressed();
+	m_Pos->MoveForward(testKey);
+
+	keyDown = input->IsDownPressed();
+	m_Pos->MoveBackward(keyDown);
+
+	keyDown = input->IsAPressed();
+	m_Pos->MoveUpward(keyDown);
+
+	keyDown = input->IsZPressed();
+	m_Pos->MoveDownward(keyDown);
+
+	keyDown = input->IsPgUpPressed();
+	m_Pos->LookUpward(keyDown);
+
+	keyDown = input->IsPgDownPressed();
+	m_Pos->LookDownward(keyDown);
+
+	// Get the view point position/rotation.
+	m_Pos->GetPos(posX, posY, posZ);
+	m_Pos->GetRot(rotX, rotY, rotZ);
+
+	posX;
+
+	m_Camera->SetPosition(posX, posY, posZ);
+	m_Camera->SetRotation(rotX, rotY, rotZ);
+
+	char x[256];
+	int i = int(posX);
+	sprintf(x, "X: %d\n", i);
+	OutputDebugStringA(x);
+	
+	//sprintf(x, "My variable is %d\n", posX);
+	//OutputDebugString((LPCWSTR)x);
+
+	result = Render();
+	if (!result)
+	{
+		return;
+	}
+}
+
 
 bool GraphicsClass::Render()
 {
@@ -191,20 +214,15 @@ bool GraphicsClass::Render()
 	bool result;
 	
 	// Clear the buffers to begin the scene.
-	m_Direct3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
-	
+	m_Direct3D->BeginScene(0.5f, 0.1f, 0.3f, 1.0f);
+
 	// Generate the view matrix based on the camera's position.
 	m_Camera->Render();
-	m_Camera->RenderBaseViewMatrix();
-
+	
 	// Get the world, view, and projection matrices from the camera and d3d objects.
 	m_Direct3D->GetWorldMatrix(worldMatrix);
 	m_Camera->GetViewMatrix(viewMatrix);
 	m_Direct3D->GetProjectionMatrix(projectionMatrix);
-	m_Camera->GetViewMatrix(baseViewMatrix);
-	m_Direct3D->GetOrthoMatrix(orthoMatrix);
-
-
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_Model->Render(m_Direct3D->GetDeviceContext());
