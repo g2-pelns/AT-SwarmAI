@@ -4,6 +4,7 @@ InputClass::InputClass()
 {
 	m_directInput = 0;
 	m_keyboard = 0;
+	m_prevkeyboard = 0;
 	m_mouse = 0;
 }
 
@@ -58,6 +59,34 @@ bool InputClass::Initialize(HINSTANCE hinstance, HWND hwnd, int screenWidth, int
 
 	// Now acquire the keyboard.
 	result = m_keyboard->Acquire();
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	// Initialize the direct input interface for the keyboard.
+	result = m_directInput->CreateDevice(GUID_SysKeyboard, &m_prevkeyboard, NULL);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	// Set the data format.  In this case since it is a keyboard we can use the predefined data format.
+	result = m_prevkeyboard->SetDataFormat(&c_dfDIKeyboard);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	// Set the cooperative level of the keyboard to share with other programs.
+	result = m_prevkeyboard->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	// Now acquire the keyboard.
+	result = m_prevkeyboard->Acquire();
 	if (FAILED(result))
 	{
 		return false;
@@ -160,7 +189,6 @@ bool InputClass::ReadKeyboard()
 {
 	HRESULT result;
 
-
 	// Read the keyboard device.
 	result = m_keyboard->GetDeviceState(sizeof(m_keyboardState), (LPVOID)&m_keyboardState);
 	if (FAILED(result))
@@ -169,6 +197,20 @@ bool InputClass::ReadKeyboard()
 		if ((result == DIERR_INPUTLOST) || (result == DIERR_NOTACQUIRED))
 		{
 			m_keyboard->Acquire();
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	result = m_prevkeyboard->GetDeviceState(sizeof(m_prevkeyboardState), (LPVOID)&m_prevkeyboardState);
+	if (FAILED(result))
+	{
+		// If the keyboard lost focus or was not acquired then try to get control back.
+		if ((result == DIERR_INPUTLOST) || (result == DIERR_NOTACQUIRED))
+		{
+			m_prevkeyboard->Acquire();
 		}
 		else
 		{
@@ -270,17 +312,8 @@ bool InputClass::IsUpPressed()
 	// Do a bitwise and on the keyboard state to check if the key is currently being pressed.
 	if (m_keyboardState[DIK_UP] & 0x80)
 	{
-		if (forwardReleased)
-		{
-			backwardReleased = false;
-			return true;
-		}
-		else if (!forwardReleased)
-		{
-			backwardReleased = true;
-			//forwardReleased = true;
-			return false;
-		}
+		OutputDebugStringW(L"Moving /n");
+		return true;
 	}
 	return false;
 }
@@ -291,21 +324,20 @@ bool InputClass::IsDownPressed()
 	// Do a bitwise and on the keyboard state to check if the key is currently being pressed.
 	if (m_keyboardState[DIK_DOWN] & 0x80)
 	{
-		if (backwardReleased)
-		{
-			forwardReleased = true;
-			return true;
-		}
-		else if (!backwardReleased)
-		{
-			forwardReleased = false;
-			//forwardReleased = true;
-			return false;
-		}
+		return true;
 	}
 	return false;
 }
 
+
+bool InputClass::IsWPressed()
+{
+	if (m_keyboardState[DIK_W] & 0x80)
+	{
+		return true;
+	}
+	return false;
+}
 
 bool InputClass::IsAPressed()
 {
@@ -314,21 +346,27 @@ bool InputClass::IsAPressed()
 	{
 		return true;
 	}
-
 	return false;
 }
 
-
-bool InputClass::IsZPressed()
+bool InputClass::IsSPressed()
 {
-	// Do a bitwise and on the keyboard state to check if the key is currently being pressed.
-	if (m_keyboardState[DIK_Z] & 0x80)
+	if (m_keyboardState[DIK_S] & 0x80)
 	{
 		return true;
 	}
-
 	return false;
 }
+
+bool InputClass::IsDPressed()
+{
+	if (m_keyboardState[DIK_D] & 0x80)
+	{
+		return true;
+	}
+	return false;
+}
+
 
 
 bool InputClass::IsPgUpPressed()

@@ -187,12 +187,12 @@ void GraphicsClass::HandleCamMovement(InputClass* input, float frameTime)
 	//Set the frame time for calculating the updated position
 	m_Pos->SetFrameTime(frameTime);
 
-	// Handle the input.
+	//Position X & Z
 	keyDown = input->IsLeftPressed();
-	m_Pos->TurnLeft(keyDown);
+	m_Pos->MoveLeft(keyDown);
 
 	keyDown = input->IsRightPressed();
-	m_Pos->TurnRight(keyDown);
+	m_Pos->MoveRight(keyDown);
 
 	keyDown = input->IsUpPressed();
 	m_Pos->MoveForward(keyDown);
@@ -200,17 +200,27 @@ void GraphicsClass::HandleCamMovement(InputClass* input, float frameTime)
 	keyDown = input->IsDownPressed();
 	m_Pos->MoveBackward(keyDown);
 
-	keyDown = input->IsAPressed();
-	m_Pos->MoveUpward(keyDown);
 
-	keyDown = input->IsZPressed();
-	m_Pos->MoveDownward(keyDown);
-
-	keyDown = input->IsPgUpPressed();
+	//Rotation
+	keyDown = input->IsWPressed();
 	m_Pos->LookUpward(keyDown);
 
-	keyDown = input->IsPgDownPressed();
+	keyDown = input->IsAPressed();
+	m_Pos->TurnLeft(keyDown);
+
+	keyDown = input->IsSPressed();
 	m_Pos->LookDownward(keyDown);
+
+	keyDown = input->IsDPressed();
+	m_Pos->TurnRight(keyDown);
+
+
+	//Position Y
+	keyDown = input->IsPgUpPressed();
+	m_Pos->MoveUpward(keyDown);
+
+	keyDown = input->IsPgDownPressed();
+	m_Pos->MoveDownward(keyDown);
 
 	// Get the view point position/rotation.
 	//m_Pos->GetPos(posX, posY, posZ);

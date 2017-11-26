@@ -11,16 +11,20 @@ PositionClass::PositionClass()
 	m_rotationY = 0.0f;
 	m_rotationZ = 0.0f;
 
-	m_frameTime = 0.0f;
+	m_frameTime = 1.0f;
 
+	//Position
 	m_forwardSpeed = 0.01f;
 	m_backwardSpeed = 0.01f;
+
 	m_upwardSpeed = 0.01f;
 	m_downwardSpeed = 0.01f;
-	m_leftTurnSpeed = 0.01f;
-	m_rightTurnSpeed = 0.01f;
-	m_lookUpSpeed = 0.01f;
-	m_lookDownSpeed = 0.01f;
+
+	//Rotation
+	m_leftTurnSpeed = 0.1f;
+	m_rightTurnSpeed = 0.1f;
+	m_lookUpSpeed = 0.1f;
+	m_lookDownSpeed = 0.1f;
 }
 
 
@@ -86,21 +90,27 @@ void PositionClass::SetFrameTime(float time)
 }
 
 
-void PositionClass::MoveForward(bool keydown)
+void PositionClass::MoveForward(bool keyDown)
 {
 	float radians;
-
-
 	// Update the forward speed movement based on the frame time and whether the user is holding the key down or not.
-	if (keydown)
+	if (keyDown)
 	{
-		m_forwardSpeed += m_frameTime * 1.0f;
+		/*m_forwardSpeed += m_frameTime * 1.0f;
 		if (m_forwardSpeed > (m_frameTime * 50.0f))
 		{
 			m_forwardSpeed = m_frameTime * 50.0f;
-		}
-		//OutputDebugStringW(L"MoveForward");
+		}*/
+		
+	// Convert degrees to radians.
+	radians = m_rotationY * 0.0174532925f;
+
+	// Update the position.
+	//m_positionX += m_forwardSpeed;
+	//m_positionX += 0.01f;
+	m_positionZ += m_forwardSpeed;
 	}
+	//OutputDebugStringW(L"MoveForward");
 	else
 	{
 		m_forwardSpeed -= m_frameTime * 0.5f;
@@ -110,15 +120,6 @@ void PositionClass::MoveForward(bool keydown)
 			m_forwardSpeed = 0.0f;
 		}
 	}
-
-	// Convert degrees to radians.
-	radians = m_rotationY * 0.0174532925f;
-
-	// Update the position.
-	//m_positionX += m_forwardSpeed;
-	m_positionX += sinf(radians) * m_forwardSpeed;
-	m_positionZ += cosf(radians) * m_forwardSpeed;
-
 	return;
 }
 
@@ -131,12 +132,19 @@ void PositionClass::MoveBackward(bool keydown)
 	// Update the backward speed movement based on the frame time and whether the user is holding the key down or not.
 	if (keydown)
 	{
-		m_backwardSpeed += m_frameTime * 1.0f;
+		/*m_backwardSpeed += m_frameTime * 1.0f;
 
 		if (m_backwardSpeed > (m_frameTime * 50.0f))
 		{
 			m_backwardSpeed = m_frameTime * 50.0f;
-		}
+		}*/
+		// Convert degrees to radians.
+		radians = m_rotationY * 0.0174532925f;
+
+		// Update the position.
+		//m_positionX -= sinf(radians) * m_backwardSpeed;
+		//m_positionZ -= cosf(radians) * m_backwardSpeed;
+		m_positionZ -= m_backwardSpeed;
 		//OutputDebugStringW(L"MoveBack");
 	}
 	else
@@ -149,13 +157,72 @@ void PositionClass::MoveBackward(bool keydown)
 		}
 	}
 
-	// Convert degrees to radians.
-	radians = m_rotationY * 0.0174532925f;
+	return;
+}
 
-	// Update the position.
-	m_positionX -= sinf(radians) * m_backwardSpeed;
-	m_positionZ -= cosf(radians) * m_backwardSpeed;
+void PositionClass::MoveLeft(bool keyDown)
+{
+	float radians;
+	// Update the forward speed movement based on the frame time and whether the user is holding the key down or not.
+	if (keyDown)
+	{
+		/*m_forwardSpeed += m_frameTime * 1.0f;
+		if (m_forwardSpeed > (m_frameTime * 50.0f))
+		{
+		m_forwardSpeed = m_frameTime * 50.0f;
+		}*/
 
+		// Convert degrees to radians.
+		radians = m_rotationY * 0.0174532925f;
+
+		// Update the position.
+		//m_positionX += m_forwardSpeed;
+		//m_positionX += 0.01f;
+		m_positionX -= m_forwardSpeed;
+	}
+	//OutputDebugStringW(L"MoveForward");
+	else
+	{
+		m_forwardSpeed -= m_frameTime * 0.5f;
+
+		if (m_forwardSpeed < 0.0f)
+		{
+			m_forwardSpeed = 0.0f;
+		}
+	}
+	return;
+}
+
+void PositionClass::MoveRight(bool keyDown)
+{
+	float radians;
+	// Update the forward speed movement based on the frame time and whether the user is holding the key down or not.
+	if (keyDown)
+	{
+		/*m_forwardSpeed += m_frameTime * 1.0f;
+		if (m_forwardSpeed > (m_frameTime * 50.0f))
+		{
+		m_forwardSpeed = m_frameTime * 50.0f;
+		}*/
+
+		// Convert degrees to radians.
+		radians = m_rotationY * 0.0174532925f;
+
+		// Update the position.
+		//m_positionX += m_forwardSpeed;
+		//m_positionX += 0.01f;
+		m_positionX += m_forwardSpeed;
+	}
+	//OutputDebugStringW(L"MoveForward");
+	else
+	{
+		m_forwardSpeed -= m_frameTime * 0.5f;
+
+		if (m_forwardSpeed < 0.0f)
+		{
+			m_forwardSpeed = 0.0f;
+		}
+	}
 	return;
 }
 
@@ -165,13 +232,15 @@ void PositionClass::MoveUpward(bool keydown)
 	// Update the upward speed movement based on the frame time and whether the user is holding the key down or not.
 	if (keydown)
 	{
-		m_upwardSpeed += m_frameTime * 1.5f;
+		/*m_upwardSpeed += m_frameTime * 1.5f;
 
 		if (m_upwardSpeed > (m_frameTime * 15.0f))
 		{
 			m_upwardSpeed = m_frameTime * 15.0f;
-		}
+		}*/
 		//OutputDebugStringW(L"MoveUp");
+	// Update the height position.
+	m_positionY += m_upwardSpeed;
 	}
 	else
 	{
@@ -183,9 +252,6 @@ void PositionClass::MoveUpward(bool keydown)
 		}
 	}
 
-	// Update the height position.
-	m_positionY += m_upwardSpeed;
-
 	return;
 }
 
@@ -195,13 +261,16 @@ void PositionClass::MoveDownward(bool keydown)
 	// Update the downward speed movement based on the frame time and whether the user is holding the key down or not.
 	if (keydown)
 	{
-		m_downwardSpeed += m_frameTime * 1.5f;
+		/*m_downwardSpeed += m_frameTime * 1.5f;
 
 		if (m_downwardSpeed > (m_frameTime * 15.0f))
 		{
 			m_downwardSpeed = m_frameTime * 15.0f;
-		}
+		}*/
 		//OutputDebugStringW(L"MoveDown");
+	
+	// Update the height position.
+	m_positionY -= m_downwardSpeed;
 	}
 	else
 	{
@@ -213,9 +282,6 @@ void PositionClass::MoveDownward(bool keydown)
 		}
 	}
 
-	// Update the height position.
-	m_positionY -= m_downwardSpeed;
-
 	return;
 }
 
@@ -225,13 +291,15 @@ void PositionClass::TurnLeft(bool keydown)
 	// Update the left turn speed movement based on the frame time and whether the user is holding the key down or not.
 	if (keydown)
 	{
-		m_leftTurnSpeed += m_frameTime * 5.0f;
+		/*m_leftTurnSpeed += m_frameTime * 5.0f;
 
 		if (m_leftTurnSpeed > (m_frameTime * 150.0f))
 		{
 			m_leftTurnSpeed = m_frameTime * 150.0f;
-		}
+		}*/
 		//OutputDebugStringW(L"TurnLeft");
+		// Update the rotation.
+	m_rotationY -= m_leftTurnSpeed;
 	}
 	else
 	{
@@ -243,8 +311,7 @@ void PositionClass::TurnLeft(bool keydown)
 		}
 	}
 
-	// Update the rotation.
-	m_rotationY -= m_leftTurnSpeed;
+
 
 	// Keep the rotation in the 0 to 360 range.
 	if (m_rotationY < 0.0f)
@@ -261,13 +328,16 @@ void PositionClass::TurnRight(bool keydown)
 	// Update the right turn speed movement based on the frame time and whether the user is holding the key down or not.
 	if (keydown)
 	{
-		m_rightTurnSpeed += m_frameTime * 5.0f;
+		/*m_rightTurnSpeed += m_frameTime * 5.0f;
 
 		if (m_rightTurnSpeed > (m_frameTime * 150.0f))
 		{
 			m_rightTurnSpeed = m_frameTime * 150.0f;
-		}
+		}*/
 		//OutputDebugStringW(L"MoveRight");
+	
+	// Update the rotation.
+	m_rotationY += m_rightTurnSpeed;
 	}
 	else
 	{
@@ -279,8 +349,6 @@ void PositionClass::TurnRight(bool keydown)
 		}
 	}
 
-	// Update the rotation.
-	m_rotationY += m_rightTurnSpeed;
 
 	// Keep the rotation in the 0 to 360 range.
 	if (m_rotationY > 360.0f)
@@ -297,13 +365,17 @@ void PositionClass::LookUpward(bool keydown)
 	// Update the upward rotation speed movement based on the frame time and whether the user is holding the key down or not.
 	if (keydown)
 	{
-		m_lookUpSpeed += m_frameTime * 7.5f;
+		/*m_lookUpSpeed += m_frameTime * 7.5f;
 
 		if (m_lookUpSpeed > (m_frameTime * 75.0f))
 		{
 			m_lookUpSpeed = m_frameTime * 75.0f;
-		}
+		}*/
 		//OutputDebugStringW(L"LookUp");
+	
+	// Update the rotation.
+	m_rotationX -= m_lookUpSpeed;
+
 	}
 	else
 	{
@@ -314,9 +386,6 @@ void PositionClass::LookUpward(bool keydown)
 			m_lookUpSpeed = 0.0f;
 		}
 	}
-
-	// Update the rotation.
-	m_rotationX -= m_lookUpSpeed;
 
 	// Keep the rotation maximum 90 degrees.
 	if (m_rotationX > 90.0f)
@@ -333,13 +402,16 @@ void PositionClass::LookDownward(bool keydown)
 	// Update the downward rotation speed movement based on the frame time and whether the user is holding the key down or not.
 	if (keydown)
 	{
-		m_lookDownSpeed += m_frameTime * 7.5f;
+		/*m_lookDownSpeed += m_frameTime * 7.5f;
 
 		if (m_lookDownSpeed > (m_frameTime * 75.0f))
 		{
 			m_lookDownSpeed = m_frameTime * 75.0f;
-		}
+		}*/
 		//OutputDebugStringW(L"LookDown");
+	
+	// Update the rotation.
+	m_rotationX += m_lookDownSpeed;
 	}
 	else
 	{
@@ -351,8 +423,6 @@ void PositionClass::LookDownward(bool keydown)
 		}
 	}
 
-	// Update the rotation.
-	m_rotationX += m_lookDownSpeed;
 
 	// Keep the rotation maximum 90 degrees.
 	if (m_rotationX < -90.0f)
