@@ -13,14 +13,14 @@ PositionClass::PositionClass()
 
 	m_frameTime = 0.0f;
 
-	m_forwardSpeed = 1.0f;
-	m_backwardSpeed = 1.0f;
-	m_upwardSpeed = 1.0f;
-	m_downwardSpeed = 1.0f;
-	m_leftTurnSpeed = 1.0f;
-	m_rightTurnSpeed = 1.0f;
-	m_lookUpSpeed = 1.0f;
-	m_lookDownSpeed = 1.0f;
+	m_forwardSpeed = 0.01f;
+	m_backwardSpeed = 0.01f;
+	m_upwardSpeed = 0.01f;
+	m_downwardSpeed = 0.01f;
+	m_leftTurnSpeed = 0.01f;
+	m_rightTurnSpeed = 0.01f;
+	m_lookUpSpeed = 0.01f;
+	m_lookDownSpeed = 0.01f;
 }
 
 
@@ -52,14 +52,23 @@ void PositionClass::SetRot(float x, float y, float z)
 }
 
 
-void PositionClass::GetPos(float& x, float& y, float& z)
+float PositionClass::GetPosX()
 {
-	x = m_positionX;
-	y = m_positionY;
-	z = m_positionZ;
-	return;
+	float x = m_positionX;
+	return x;
 }
 
+float PositionClass::GetPosY()
+{
+	float y = m_positionY;
+	return y;
+}
+
+float PositionClass::GetPosZ()
+{
+	float z = m_positionZ;
+	return z;
+}
 
 void PositionClass::GetRot(float& x, float& y, float& z)
 {
@@ -106,6 +115,7 @@ void PositionClass::MoveForward(bool keydown)
 	radians = m_rotationY * 0.0174532925f;
 
 	// Update the position.
+	//m_positionX += m_forwardSpeed;
 	m_positionX += sinf(radians) * m_forwardSpeed;
 	m_positionZ += cosf(radians) * m_forwardSpeed;
 

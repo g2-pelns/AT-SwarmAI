@@ -51,6 +51,9 @@ private:
 
 	bool m_F1_released;
 	bool m_F2_released;
+
+	bool forwardReleased;
+	bool backwardReleased;
 };
 
 #endif

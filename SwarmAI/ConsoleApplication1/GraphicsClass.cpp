@@ -5,6 +5,7 @@ GraphicsClass::GraphicsClass()
 {
 	m_Direct3D = 0;
 	m_Camera = 0;
+	m_Input = 0;
 	m_Pos = 0;
 	m_Model = 0;
 	m_ColorShader = 0;
@@ -18,7 +19,7 @@ GraphicsClass::~GraphicsClass()
 {
 }
 
-bool GraphicsClass::Init(int screenWidth, int screenHeight, HWND hwnd)
+bool GraphicsClass::Init(HINSTANCE hinstance,int screenWidth, int screenHeight, HWND hwnd)
 {
 	bool result;
 
@@ -37,6 +38,17 @@ bool GraphicsClass::Init(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
+	m_Input = new InputClass;
+	if (!m_Input)
+	{
+		return false;
+	}
+	result = m_Input->Initialize(hinstance, hwnd, screenWidth, screenHeight);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the input object.", L"Error", MB_OK);
+		return false;
+	}
 
 
 	//Create pos object
@@ -47,8 +59,8 @@ bool GraphicsClass::Init(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	//Set the initial pos and rot
-	m_Pos->SetPos(-2.0f, -2.0f, -2.0f);
-	m_Pos->SetRot(0.0f, 1.0f, 0.0f);
+	m_Pos->SetPos(0.0f, 0.0f, -4.0f);
+	m_Pos->SetRot(0.0f, 0.0f, 0.0f);
 
 	// Create the camera object.
 	m_Camera = new CameraClass;
@@ -58,8 +70,8 @@ bool GraphicsClass::Init(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Set the initial position of the camera.
-	m_Camera->SetPosition(-2.0f, -2.0f, -2.0f);
-	m_Camera->SetRotation(0.0f, 1.0f, 0.0f);
+	m_Camera->SetPosition(0.0f, 0.0f, -4.0f);
+	m_Camera->SetRotation(0.0f, 0.0f, 0.0f);
 
 	// Create the model object.
 	m_Model = new ModelClass;
@@ -118,6 +130,12 @@ void GraphicsClass::ShutDown()
 		m_Camera = 0;
 	}
 
+	if (m_Input)
+	{
+		delete m_Input;
+		m_Input = 0;
+	}
+
 	if (m_Pos)
 	{
 		delete m_Pos;
@@ -138,13 +156,24 @@ bool GraphicsClass::Frame(InputClass* Input, float frameTime)
 {
 	bool result;
 
-	HandleCamMovement(Input, frameTime);
-	//Render the graphics scene
-	/*result = Render();
+	result = m_Input->Frame();
 	if (!result)
 	{
 		return false;
-	}*/
+	}
+
+	if (m_Input->IsEscapePressed() == true)
+	{
+		return false;
+	}
+
+	HandleCamMovement(m_Input, frameTime);
+	//Render the graphics scene
+	result = Render();
+	if (!result)
+	{
+		return false;
+	}
 	return true;
 }
 
@@ -166,7 +195,7 @@ void GraphicsClass::HandleCamMovement(InputClass* input, float frameTime)
 	m_Pos->TurnRight(keyDown);
 
 	keyDown = input->IsUpPressed();
-	m_Pos->MoveForward(testKey);
+	m_Pos->MoveForward(keyDown);
 
 	keyDown = input->IsDownPressed();
 	m_Pos->MoveBackward(keyDown);
@@ -184,27 +213,30 @@ void GraphicsClass::HandleCamMovement(InputClass* input, float frameTime)
 	m_Pos->LookDownward(keyDown);
 
 	// Get the view point position/rotation.
-	m_Pos->GetPos(posX, posY, posZ);
-	m_Pos->GetRot(rotX, rotY, rotZ);
+	//m_Pos->GetPos(posX, posY, posZ);
 
-	posX;
+	posX = m_Pos->GetPosX();
+	posY = m_Pos->GetPosY();
+	posZ = m_Pos->GetPosZ();
+
+	m_Pos->GetRot(rotX, rotY, rotZ);
 
 	m_Camera->SetPosition(posX, posY, posZ);
 	m_Camera->SetRotation(rotX, rotY, rotZ);
 
-	char x[256];
+	/*char x[256];
 	int i = int(posX);
 	sprintf(x, "X: %d\n", i);
-	OutputDebugStringA(x);
+	OutputDebugStringA(x);*/
 	
 	//sprintf(x, "My variable is %d\n", posX);
 	//OutputDebugString((LPCWSTR)x);
 
-	result = Render();
+	/*result = Render();
 	if (!result)
 	{
 		return;
-	}
+	}*/
 }
 
 

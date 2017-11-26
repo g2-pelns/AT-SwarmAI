@@ -94,6 +94,9 @@ bool InputClass::Initialize(HINSTANCE hinstance, HWND hwnd, int screenWidth, int
 	m_F1_released = true;
 	m_F2_released = true;
 
+	forwardReleased = true;
+	backwardReleased = true;
+
 	return true;
 }
 
@@ -267,9 +270,18 @@ bool InputClass::IsUpPressed()
 	// Do a bitwise and on the keyboard state to check if the key is currently being pressed.
 	if (m_keyboardState[DIK_UP] & 0x80)
 	{
-		return true;
+		if (forwardReleased)
+		{
+			backwardReleased = false;
+			return true;
+		}
+		else if (!forwardReleased)
+		{
+			backwardReleased = true;
+			//forwardReleased = true;
+			return false;
+		}
 	}
-
 	return false;
 }
 
@@ -279,9 +291,18 @@ bool InputClass::IsDownPressed()
 	// Do a bitwise and on the keyboard state to check if the key is currently being pressed.
 	if (m_keyboardState[DIK_DOWN] & 0x80)
 	{
-		return true;
+		if (backwardReleased)
+		{
+			forwardReleased = true;
+			return true;
+		}
+		else if (!backwardReleased)
+		{
+			forwardReleased = false;
+			//forwardReleased = true;
+			return false;
+		}
 	}
-
 	return false;
 }
 

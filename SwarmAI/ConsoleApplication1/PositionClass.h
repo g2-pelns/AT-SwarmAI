@@ -12,7 +12,10 @@ public:
 	void SetPos(float, float, float);
 	void SetRot(float, float, float);
 
-	void GetPos(float&, float&, float&);
+	float GetPosX();
+	float GetPosY();
+	float GetPosZ();
+
 	void GetRot(float&, float&, float&);
 
 	void SetFrameTime(float);

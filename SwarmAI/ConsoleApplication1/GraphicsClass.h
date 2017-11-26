@@ -20,7 +20,7 @@ public:
 	GraphicsClass(const GraphicsClass&);
 	~GraphicsClass();
 
-	bool Init(int, int, HWND);
+	bool Init(HINSTANCE,int, int, HWND);
 	void HandleCamMovement(InputClass*, float);
 	void ShutDown();
 	bool Frame(InputClass*, float);
@@ -29,6 +29,7 @@ private:
 	bool Render();
 	D3dClass* m_Direct3D;
 	CameraClass* m_Camera;
+	InputClass* m_Input;
 	PositionClass* m_Pos;
 	ModelClass* m_Model;
 	ColorShaderClass* m_ColorShader;

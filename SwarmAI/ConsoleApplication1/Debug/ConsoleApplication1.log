@@ -1,17 +1,10 @@
-﻿Build started 25/11/2017 16:47:23.
-     1>Project "D:\AT-SwarmAI\SwarmAI\ConsoleApplication1\ConsoleApplication1.vcxproj" on node 2 (Build target(s)).
+﻿Build started 26/11/2017 17:03:32.
+     1>Project "D:\MassiveLegend\AT-SwarmAI\SwarmAI\ConsoleApplication1\ConsoleApplication1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt GraphicsClass.cpp PositionClass.cpp
-         PositionClass.cpp
-         GraphicsClass.cpp
-     1>d:\at-swarmai\swarmai\consoleapplication1\graphicsclass.cpp(26): warning C4316: 'D3dClass': object allocated on the heap may not be aligned 16
-     1>d:\at-swarmai\swarmai\consoleapplication1\graphicsclass.cpp(54): warning C4316: 'CameraClass': object allocated on the heap may not be aligned 16
-     1>d:\at-swarmai\swarmai\consoleapplication1\graphicsclass.cpp(139): warning C4101: 'result': unreferenced local variable
-     1>d:\at-swarmai\swarmai\consoleapplication1\graphicsclass.cpp(197): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-         c:\program files (x86)\windows kits\10\include\10.0.10150.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
-         Generating Code...
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt InputClass.cpp
+         InputClass.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\AT-SwarmAI\SwarmAI\Debug\ConsoleApplication1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\AT-SwarmAI\SwarmAI\Debug\ConsoleApplication1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\AT-SwarmAI\SwarmAI\Debug\ConsoleApplication1.lib" /MACHINE:X86 Debug\CameraClass.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\MassiveLegend\AT-SwarmAI\SwarmAI\Debug\ConsoleApplication1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\MassiveLegend\AT-SwarmAI\SwarmAI\Debug\ConsoleApplication1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\MassiveLegend\AT-SwarmAI\SwarmAI\Debug\ConsoleApplication1.lib" /MACHINE:X86 Debug\CameraClass.obj
          Debug\ColorShaderClass.obj
          Debug\D3DClass.obj
          Debug\GraphicsClass.obj
@@ -20,9 +13,9 @@
          Debug\ModelClass.obj
          Debug\PositionClass.obj
          Debug\SystemClass.obj
-         ConsoleApplication1.vcxproj -> D:\AT-SwarmAI\SwarmAI\Debug\ConsoleApplication1.exe
-     1>Done Building Project "D:\AT-SwarmAI\SwarmAI\ConsoleApplication1\ConsoleApplication1.vcxproj" (Build target(s)).
+         ConsoleApplication1.vcxproj -> D:\MassiveLegend\AT-SwarmAI\SwarmAI\Debug\ConsoleApplication1.exe
+     1>Done Building Project "D:\MassiveLegend\AT-SwarmAI\SwarmAI\ConsoleApplication1\ConsoleApplication1.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.97
+Time Elapsed 00:00:00.79
