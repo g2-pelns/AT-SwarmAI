@@ -76,7 +76,7 @@ void ModelClass::ShutDownBuffers()
 bool ModelClass::LoadModel(char* fileName)
 {
 	ifstream fin;
-	char input;
+	char input = 0;
 	int i;
 
 	//Open the model file
@@ -89,14 +89,14 @@ bool ModelClass::LoadModel(char* fileName)
 	}
 
 	//Read up to the value of vertex count
-	fin.get(input);
+	//fin.get(input);
 	while (input != ':')
 	{
 		fin.get(input);
 	}
 
 	//Read in the vertex count
-	m_vertexCount = 36;
+	m_vertexCount = input;
 
 	//Set the number of indices to be the same as the vertex count
 	m_indexCount = m_vertexCount;
@@ -108,12 +108,12 @@ bool ModelClass::LoadModel(char* fileName)
 		return false;
 	}
 
-	////Read up to the beginning of the data
-	//fin.get(input);
-	//while (input != ':')
-	//{
-	//	fin.get(input);
-	//}
+	//Read up to the beginning of the data
+	fin.get(input);
+	while (input != ':')
+	{
+		fin.get(input);
+	}
 	//fin.get(input);
 	//fin.get(input);
 
@@ -130,18 +130,18 @@ bool ModelClass::LoadModel(char* fileName)
 
 bool ModelClass::InitBuffers(ID3D11Device* device)
 {
-	int i;
+	int i = 0;
 	HRESULT result;
 	VertexType* vertices;
 	unsigned long* indices;
 	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 
-	//// Set the number of vertices in the vertex array.
-	m_vertexCount = 3;
+	////// Set the number of vertices in the vertex array.
+	m_vertexCount = 36;
 
-	//// Set the number of indices in the index array.
-	m_indexCount = 3;
+	////// Set the number of indices in the index array.
+	m_indexCount = m_vertexCount;
 
 	// Create the vertex array.
 	vertices = new VertexType[m_vertexCount];
@@ -158,28 +158,64 @@ bool ModelClass::InitBuffers(ID3D11Device* device)
 	}
 
 	// Load the vertex array with data.
-	vertices[0].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);  // Bottom left.
+	vertices[0].position = XMFLOAT3(-1.0f, 1.0f, -1.0f);  // Bottom left.
 	vertices[0].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
-	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);  // Top middle.
+	vertices[1].position = XMFLOAT3(1.0f, 1.0f, -1.0f);  // Top middle.
 	vertices[1].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 
-	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);  // Bottom right.
+	vertices[2].position = XMFLOAT3(-1.0f, -1.0f, -1.0f);  // Bottom right.
 	vertices[2].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+
+	vertices[3].position = XMFLOAT3(-1.0f, -1.0f, -1.0f);  // Bottom left. -1.0f -1.0f -1.0f
+	vertices[3].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+
+	vertices[4].position = XMFLOAT3(1.0f, 1.0f, -1.0f);  // Top middle.  1.0f  1.0f -1.0f
+	vertices[4].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+
+	vertices[5].position = XMFLOAT3(1.0f, -1.0f, -1.0f);  // Bottom right.  1.0f -1.0f -1.0f
+	vertices[5].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+
+	vertices[6].position = XMFLOAT3(1.0f, 1.0f, -1.0f);  // Bottom left.  1.0f  1.0f -1.0f
+	vertices[6].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+
+	vertices[7].position = XMFLOAT3(1.0f, 1.0f, 1.0f);  // Top middle.  1.0f  1.0f  1.0f
+	vertices[7].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+
+	vertices[8].position = XMFLOAT3(1.0f, -1.0f, -1.0f);  // Bottom right.  1.0f -1.0f -1.0f
+	vertices[8].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+
+	vertices[9].position = XMFLOAT3(1.0f, -1.0f, -1.0f);  // Bottom left.  1.0f -1.0f -1.0f
+	vertices[9].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+
+	vertices[10].position = XMFLOAT3(1.0f, 1.0f, 1.0f);  // Top middle.  1.0f  1.0f  1.0f
+	vertices[10].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+
+	vertices[11].position = XMFLOAT3(1.0f, -1.0f, 1.0f);  // Bottom right.  1.0f -1.0f  1.0f
+	vertices[11].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
 
 	// Load the index array with data.
 	indices[0] = 0;  // Bottom left.
 	indices[1] = 1;  // Top middle.
 	indices[2] = 2;  // Bottom right.
+	indices[3] = 3;  // Bottom left.
+	indices[4] = 4;  // Top middle.
+	indices[5] = 5;  // Bottom right.
+	indices[6] = 6;  // Bottom left.
+	indices[7] = 7;  // Top middle.
+	indices[8] = 8;  // Bottom right.
+	indices[9] = 9;  // Bottom left.
+	indices[10] = 10;  // Top middle.
+	indices[11] = 11;  // Bottom right.
 
-	////Load the vertex array and index array with data
-	//for (i = 0; i < m_vertexCount; i++)
-	//{
-	//	vertices[i].position = XMFLOAT3(m_model[i].x, m_model[i].y, m_model[i].z);
-	//	vertices[i].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	//Load the vertex array and index array with data
+	/*for (i = 0; i < m_vertexCount; i++)
+	{
+		vertices[i].position = XMFLOAT3(m_model[i].x, m_model[i].y, m_model[i].z);
+		vertices[i].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
-	//	indices[i] = i;
-	//}
+		indices[i] = i;
+	}*/
 
 	// Set up the description of the static vertex buffer.
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;

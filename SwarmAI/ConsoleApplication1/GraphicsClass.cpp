@@ -81,7 +81,7 @@ bool GraphicsClass::Init(HINSTANCE hinstance,int screenWidth, int screenHeight, 
 	}
 
 	// Initialize the model object.
-	result = m_Model->Init(m_Direct3D->GetDevice(), "Cube.txt");
+	result = m_Model->Init(m_Direct3D->GetDevice(), "../ConsoleApplication1/Cube.txt");
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
