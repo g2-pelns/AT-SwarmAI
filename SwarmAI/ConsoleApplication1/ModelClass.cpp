@@ -276,7 +276,7 @@ bool ModelClass::InitBuffers(ID3D11Device* device)
 	}
 
 	//Set the number of instances int the array
-	m_instanceCount = 4;
+	m_instanceCount = 12;
 
 	//Create instance array
 	auto instances = new VertexType[m_instanceCount];
@@ -290,6 +290,16 @@ bool ModelClass::InitBuffers(ID3D11Device* device)
 	instances[1].position = XMFLOAT3(-1.5f, 1.5f, 5.0f);
 	instances[2].position = XMFLOAT3(1.5f, -1.5f, 5.0f);
 	instances[3].position = XMFLOAT3(1.5f, 1.5f, 5.0f);
+
+	instances[4].position = XMFLOAT3(-5.0f, -1.5f, 5.0f);
+	instances[5].position = XMFLOAT3(-5.0f, 1.5f, 5.0f);
+	instances[6].position = XMFLOAT3(4.5f, -1.5f, 5.0f);
+	instances[7].position = XMFLOAT3(4.5f, 1.5f, 5.0f);
+
+	instances[8].position = XMFLOAT3(-1.5f, -4.5f, 5.0f);
+	instances[9].position = XMFLOAT3(-1.5f, 4.5f, 5.0f);
+	instances[10].position = XMFLOAT3(1.5f, -4.5f, 5.0f);
+	instances[11].position = XMFLOAT3(1.5f, 4.5f, 5.0f);
 
 	//Set up the description of the instance buffer
 	instanceBufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -341,8 +351,6 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext* deviceContext)
 	//Set he array of ointers to the vertex and instance buffers
 	bufferPointers[0] = m_vertexBuffer;
 	bufferPointers[1] = m_instanceBuffer;
-
-
 
 	// Set the vertex buffer to active in the input assembler so it can be rendered.
 	deviceContext->IASetVertexBuffers(0, 2, bufferPointers, strides, offsets);
