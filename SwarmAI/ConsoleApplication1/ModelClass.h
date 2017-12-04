@@ -5,6 +5,8 @@
 #include <DirectXMath.h>
 #include <fstream>
 
+#include "ColorShaderClass.h"
+
 using namespace std;
 using namespace DirectX;
 
@@ -20,21 +22,30 @@ public:
 	void Render(ID3D11DeviceContext*);
 
 	int GetIndexCount();
+	int GetVertexCount();
+	int GetInstanceCount();
 
 private:
 	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
 	int m_vertexCount, m_indexCount;
+	int m_instanceCount = 4;
 
 	struct VertexType
 	{
 		XMFLOAT3 position;
 		XMFLOAT4 color;
+		XMFLOAT3 instanacePosition;
 	};
 
 	struct ModelType
 	{
 		float x, y, z;
 	};
+
+	//struct InstanceType
+	//{
+	//	XMFLOAT3 position;
+	//};
 
 	void ShutDownBuffers();
 	bool InitBuffers(ID3D11Device*);
@@ -44,5 +55,6 @@ private:
 	void ReleaseModel();
 
 	ModelType* m_model;
+	ID3D11Buffer* m_instanceBuffer;
 };
 #endif
