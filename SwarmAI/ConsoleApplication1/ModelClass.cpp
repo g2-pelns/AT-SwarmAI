@@ -276,7 +276,7 @@ bool ModelClass::InitBuffers(ID3D11Device* device)
 	}
 
 	//Set the number of instances int the array
-	m_instanceCount = 12;
+	m_instanceCount = 1000;
 
 	//Create instance array
 	auto instances = new VertexType[m_instanceCount];
@@ -284,22 +284,33 @@ bool ModelClass::InitBuffers(ID3D11Device* device)
 	{
 		return false;
 	}
-	
-	//Load the instance array with data
-	instances[0].position = XMFLOAT3(-1.5f, -1.5f, 5.0f);
-	instances[1].position = XMFLOAT3(-1.5f, 1.5f, 5.0f);
-	instances[2].position = XMFLOAT3(1.5f, -1.5f, 5.0f);
-	instances[3].position = XMFLOAT3(1.5f, 1.5f, 5.0f);
 
-	instances[4].position = XMFLOAT3(-5.0f, -1.5f, 5.0f);
-	instances[5].position = XMFLOAT3(-5.0f, 1.5f, 5.0f);
-	instances[6].position = XMFLOAT3(4.5f, -1.5f, 5.0f);
-	instances[7].position = XMFLOAT3(4.5f, 1.5f, 5.0f);
+	int x = 0;
+	int y = 0;
+	int z = 5;
+	int iterator = 0;
+	int ziter = 0;
 
-	instances[8].position = XMFLOAT3(-1.5f, -4.5f, 5.0f);
-	instances[9].position = XMFLOAT3(-1.5f, 4.5f, 5.0f);
-	instances[10].position = XMFLOAT3(1.5f, -4.5f, 5.0f);
-	instances[11].position = XMFLOAT3(1.5f, 4.5f, 5.0f);
+	for (int i = 0; i < m_instanceCount; i++)
+	{
+		instances[i].position = XMFLOAT3(x, y, z);
+
+		x += 2;
+		iterator++;
+		if (iterator == 10)
+		{
+			iterator = 0;
+			ziter++;
+			y -= 2;
+			x = 0;
+			if (ziter == 10)
+			{
+				z += 2;
+				y = 0;
+				ziter = 0;
+			}
+		}
+	}
 
 	//Set up the description of the instance buffer
 	instanceBufferDesc.Usage = D3D11_USAGE_DEFAULT;

@@ -14,8 +14,8 @@ PositionClass::PositionClass()
 	m_frameTime = 1.0f;
 
 	//Position
-	m_forwardSpeed = 0.01f;
-	m_backwardSpeed = 0.01f;
+	m_forwardSpeed = 0.1f;
+	m_backwardSpeed = 0.1f;
 
 	m_upwardSpeed = 0.01f;
 	m_downwardSpeed = 0.01f;
