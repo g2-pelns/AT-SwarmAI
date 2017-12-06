@@ -17,8 +17,8 @@ PositionClass::PositionClass()
 	m_forwardSpeed = 0.1f;
 	m_backwardSpeed = 0.1f;
 
-	m_upwardSpeed = 0.01f;
-	m_downwardSpeed = 0.01f;
+	m_upwardSpeed = 0.1f;
+	m_downwardSpeed = 0.1f;
 
 	//Rotation
 	m_leftTurnSpeed = 0.1f;

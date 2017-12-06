@@ -3,7 +3,11 @@
 
 #include <d3d11.h>
 #include <DirectXMath.h>
+
 #include <fstream>
+#include <memory>
+#include <vector>
+#include <ctime>
 
 #include "ColorShaderClass.h"
 
@@ -39,7 +43,9 @@ private:
 
 	struct ModelType
 	{
-		float x, y, z;
+		float x;
+		float y;
+		float z;
 	};
 
 	//struct InstanceType
@@ -54,7 +60,8 @@ private:
 	bool LoadModel(char*);
 	void ReleaseModel();
 
-	ModelType* m_model;
+	vector<unique_ptr<ModelType>> m_model;
+	//ModelType* m_model;
 	ID3D11Buffer* m_instanceBuffer;
 };
 #endif
