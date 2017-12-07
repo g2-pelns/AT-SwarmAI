@@ -23,13 +23,16 @@ public:
 
 	void ShutDown();
 	bool Init(ID3D11Device*, char*);
-	void Render(ID3D11DeviceContext*);
+	void Render(ID3D11DeviceContext*, ID3D11Device*);
 
 	int GetIndexCount();
 	int GetVertexCount();
 	int GetInstanceCount();
 
 private:
+	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc, instanceBufferDesc;
+	D3D11_SUBRESOURCE_DATA vertexData, indexData, instanceData;
+
 	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
 	int m_vertexCount, m_indexCount;
 	int m_instanceCount = 4;
@@ -60,7 +63,10 @@ private:
 	bool LoadModel(char*);
 	void ReleaseModel();
 
+	void updateInstPositions(ID3D11Device*);
+
 	vector<unique_ptr<ModelType>> m_model;
+	VertexType* instances;
 	//ModelType* m_model;
 	ID3D11Buffer* m_instanceBuffer;
 };

@@ -42,10 +42,11 @@ bool ModelClass::Init(ID3D11Device* device, char* modelFileName)
 	return true;
 }
 
-void ModelClass::Render(ID3D11DeviceContext* deviceContext)
+void ModelClass::Render(ID3D11DeviceContext* deviceContext, ID3D11Device* device)
 {
 	//Put the vertex and index buffers on the graphics pipeline to prepare them for drawing
 	RenderBuffers(deviceContext);
+	updateInstPositions(device);
 	return;
 }
 
@@ -161,8 +162,7 @@ bool ModelClass::InitBuffers(ID3D11Device* device)
 	VertexType* vertices;
 	//InstanceType* instances;
 	unsigned long* indices;
-	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc, instanceBufferDesc;
-	D3D11_SUBRESOURCE_DATA vertexData, indexData, instanceData;
+
 
 	////// Set the number of vertices in the vertex array.
 	//m_vertexCount = 36;
@@ -294,7 +294,8 @@ bool ModelClass::InitBuffers(ID3D11Device* device)
 	m_instanceCount = 1000;
 
 	//Create instance array
-	auto instances = new VertexType[m_instanceCount];
+	instances = new VertexType[m_instanceCount];
+
 	if (!instances)
 	{
 		return false;
@@ -354,8 +355,8 @@ bool ModelClass::InitBuffers(ID3D11Device* device)
 	delete[] indices;
 	indices = 0;
 
-	delete[] instances;
-	instances = 0;
+	/*delete[] instances;
+	instances = 0;*/
 
 	return true;
 }
@@ -394,6 +395,31 @@ void ModelClass::ReleaseModel()
 {
 	m_model.clear();
 	return;
+}
+
+void ModelClass::updateInstPositions(ID3D11Device* device)
+{
+	HRESULT result;
+	float velociy = 0.005;
+	XMFLOAT3 target = {0.0f, 0.0f, 30.0f};
+
+	for (int i = 0; i < m_instanceCount; i++)
+	{
+		XMFLOAT3 desired;
+		desired.x = target.x - instances[i].position.x;
+		desired.y = target.y - instances[i].position.y;
+		desired.z = target.z - instances[i].position.z;
+
+		instances[i].position.x = instances[i].position.x + desired.x * velociy;
+		instances[i].position.y = instances[i].position.y + desired.y * velociy;
+		instances[i].position.z = instances[i].position.z + desired.z * velociy;
+	}
+
+	result = device->CreateBuffer(&instanceBufferDesc, &instanceData, &m_instanceBuffer);
+	if (FAILED(result))
+	{
+		return;
+	}
 }
 
 
