@@ -1,0 +1,37 @@
+﻿Build started 08/12/2017 16:49:10.
+     1>Project "D:\MassiveLegend\AT-SwarmAI\SwarmAI\ConsoleApplication1\ConsoleApplication1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt CameraClass.cpp ColorShaderClass.cpp D3DClass.cpp GraphicsClass.cpp InputClass.cpp Main.cpp ModelClass.cpp PositionClass.cpp SystemClass.cpp
+         CameraClass.cpp
+         ColorShaderClass.cpp
+         D3DClass.cpp
+         GraphicsClass.cpp
+     1>GraphicsClass.cpp(27): warning C4316: 'D3dClass': object allocated on the heap may not be aligned 16
+     1>GraphicsClass.cpp(66): warning C4316: 'CameraClass': object allocated on the heap may not be aligned 16
+     1>GraphicsClass.cpp(182): warning C4101: 'result': unreferenced local variable
+         InputClass.cpp
+         Main.cpp
+         ModelClass.cpp
+     1>ModelClass.cpp(312): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>ModelClass.cpp(403): warning C4305: 'initializing': truncation from 'double' to 'float'
+         PositionClass.cpp
+         SystemClass.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\MassiveLegend\AT-SwarmAI\SwarmAI\Release\ConsoleApplication1.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\MassiveLegend\AT-SwarmAI\SwarmAI\Release\ConsoleApplication1.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\MassiveLegend\AT-SwarmAI\SwarmAI\Release\ConsoleApplication1.lib" /MACHINE:X86 /SAFESEH Release\CameraClass.obj
+         Release\ColorShaderClass.obj
+         Release\D3DClass.obj
+         Release\GraphicsClass.obj
+         Release\InputClass.obj
+         Release\Main.obj
+         Release\ModelClass.obj
+         Release\PositionClass.obj
+         Release\SystemClass.obj
+         Generating code
+         All 381 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+         Finished generating code
+         ConsoleApplication1.vcxproj -> D:\MassiveLegend\AT-SwarmAI\SwarmAI\Release\ConsoleApplication1.exe
+     1>Done Building Project "D:\MassiveLegend\AT-SwarmAI\SwarmAI\ConsoleApplication1\ConsoleApplication1.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:07.96

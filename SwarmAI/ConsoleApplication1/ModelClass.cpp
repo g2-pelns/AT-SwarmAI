@@ -400,19 +400,44 @@ void ModelClass::ReleaseModel()
 void ModelClass::updateInstPositions(ID3D11Device* device)
 {
 	HRESULT result;
-	float velociy = 0.005;
-	XMFLOAT3 target = {0.0f, 0.0f, 30.0f};
+	float velociy = 0.05;
+	//XMFLOAT3 target = {0.0f, 0.0f, 30.0f};
 
 	for (int i = 0; i < m_instanceCount; i++)
 	{
-		XMFLOAT3 desired;
-		desired.x = target.x - instances[i].position.x;
-		desired.y = target.y - instances[i].position.y;
-		desired.z = target.z - instances[i].position.z;
+		XMFLOAT3 dist;
+		dist.x = sqrt(instances[i - 1].position.x - instances[i].position.x);
+		dist.y = sqrt(instances[i - 1].position.y - instances[i].position.y);
+		dist.z = sqrt(instances[i - 1].position.z - instances[i].position.z);
 
-		instances[i].position.x = instances[i].position.x + desired.x * velociy;
-		instances[i].position.y = instances[i].position.y + desired.y * velociy;
-		instances[i].position.z = instances[i].position.z + desired.z * velociy;
+		if (i != 0)
+		{
+			if (dist.x >= 0.0f || dist.y != 0.0f || dist.z != 0.0f)
+			{
+				XMFLOAT3 desired;
+				desired.x = instances[i-1].position.x /*target.x*/ - instances[i].position.x;
+				desired.y = instances[i-1].position.y /*target.y*/ - instances[i].position.y;
+				desired.z = instances[i-1].position.z /*target.z*/ - instances[i].position.z;
+
+				instances[i].position.x = instances[i].position.x + desired.x * velociy;
+				instances[i].position.y = instances[i].position.y + desired.y * velociy;
+				instances[i].position.z = instances[i].position.z + desired.z * velociy;
+			}
+		}
+		else
+		{
+			if (dist.x >= 0.0f || dist.y != 0.0f || dist.z != 0.0f)
+			{
+				XMFLOAT3 desired;
+				desired.x = instances[i + 999].position.x /*target.x*/ - instances[i].position.x;
+				desired.y = instances[i + 999].position.y /*target.y*/ - instances[i].position.y;
+				desired.z = instances[i + 999].position.z /*target.z*/ - instances[i].position.z;
+
+				instances[i].position.x = instances[i].position.x + desired.x * velociy;
+				instances[i].position.y = instances[i].position.y + desired.y * velociy;
+				instances[i].position.z = instances[i].position.z + desired.z * velociy;
+			}
+		}
 	}
 
 	result = device->CreateBuffer(&instanceBufferDesc, &instanceData, &m_instanceBuffer);

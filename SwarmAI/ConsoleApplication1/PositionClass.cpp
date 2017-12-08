@@ -21,10 +21,10 @@ PositionClass::PositionClass()
 	m_downwardSpeed = 0.1f;
 
 	//Rotation
-	m_leftTurnSpeed = 0.1f;
-	m_rightTurnSpeed = 0.1f;
-	m_lookUpSpeed = 0.1f;
-	m_lookDownSpeed = 0.1f;
+	m_leftTurnSpeed = 0.5f;
+	m_rightTurnSpeed = 0.5f;
+	m_lookUpSpeed = 0.5f;
+	m_lookDownSpeed = 0.5f;
 }
 
 
