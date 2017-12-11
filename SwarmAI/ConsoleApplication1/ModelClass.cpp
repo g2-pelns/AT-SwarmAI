@@ -184,57 +184,6 @@ bool ModelClass::InitBuffers(ID3D11Device* device)
 		return false;
 	}
 
-	//// Load the vertex array with data.
-	//vertices[0].position = XMFLOAT3(-1.0f, 1.0f, -1.0f);  // Bottom left.
-	//vertices[0].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-
-	//vertices[1].position = XMFLOAT3(1.0f, 1.0f, -1.0f);  // Top middle.
-	//vertices[1].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-
-	//vertices[2].position = XMFLOAT3(-1.0f, -1.0f, -1.0f);  // Bottom right.
-	//vertices[2].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-
-	//vertices[3].position = XMFLOAT3(-1.0f, -1.0f, -1.0f);  // Bottom left. -1.0f -1.0f -1.0f
-	//vertices[3].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-
-	//vertices[4].position = XMFLOAT3(1.0f, 1.0f, -1.0f);  // Top middle.  1.0f  1.0f -1.0f
-	//vertices[4].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-
-	//vertices[5].position = XMFLOAT3(1.0f, -1.0f, -1.0f);  // Bottom right.  111.0f -1.0f -1.0f
-	//vertices[5].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-
-	//vertices[6].position = XMFLOAT3(1.0f, 1.0f, -1.0f);  // Bottom left.  1.0f  1.0f -1.0f
-	//vertices[6].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-
-	//vertices[7].position = XMFLOAT3(1.0f, 1.0f, 1.0f);  // Top middle.  1.0f  1.0f  1.0f
-	//vertices[7].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-
-	//vertices[8].position = XMFLOAT3(1.0f, -1.0f, -1.0f);  // Bottom right.  1.0f -1.0f -1.0f
-	//vertices[8].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-
-	//vertices[9].position = XMFLOAT3(1.0f, -1.0f, -1.0f);  // Bottom left.  1.0f -1.0f -1.0f
-	//vertices[9].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-
-	//vertices[10].position = XMFLOAT3(1.0f, 1.0f, 1.0f);  // Top middle.  1.0f  1.0f  1.0f
-	//vertices[10].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-
-	//vertices[11].position = XMFLOAT3(1.0f, -1.0f, 1.0f);  // Bottom right.  1.0f -1.0f  1.0f
-	//vertices[11].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-
-	//// Load the index array with data.
-	//indices[0] = 0;  // Bottom left.
-	//indices[1] = 1;  // Top middle.
-	//indices[2] = 2;  // Bottom right.
-	//indices[3] = 3;  // Bottom left.
-	//indices[4] = 4;  // Top middle.
-	//indices[5] = 5;  // Bottom right.
-	//indices[6] = 6;  // Bottom left.
-	//indices[7] = 7;  // Top middle.
-	//indices[8] = 8;  // Bottom right.
-	//indices[9] = 9;  // Bottom left.
-	//indices[10] = 10;  // Top middle.
-	//indices[11] = 11;  // Bottom right.
-
 	srand(static_cast <unsigned> (time(0)));
 
 	//Load the vertex array and index array with data
@@ -405,14 +354,14 @@ void ModelClass::updateInstPositions(ID3D11Device* device)
 
 	for (int i = 0; i < m_instanceCount; i++)
 	{
-		XMFLOAT3 dist;
-		dist.x = sqrt(instances[i - 1].position.x - instances[i].position.x);
-		dist.y = sqrt(instances[i - 1].position.y - instances[i].position.y);
-		dist.z = sqrt(instances[i - 1].position.z - instances[i].position.z);
-
 		if (i != 0)
 		{
-			if (dist.x >= 0.0f || dist.y != 0.0f || dist.z != 0.0f)
+			XMFLOAT3 dist;
+			dist.x = sqrt(instances[i - 1].position.x - instances[i].position.x);
+			dist.y = sqrt(instances[i - 1].position.y - instances[i].position.y);
+			dist.z = sqrt(instances[i - 1].position.z - instances[i].position.z);
+
+			if (dist.x >= 2.0f || dist.y >= 2.0f || dist.z >= 2.0f)
 			{
 				XMFLOAT3 desired;
 				desired.x = instances[i-1].position.x /*target.x*/ - instances[i].position.x;
@@ -426,7 +375,12 @@ void ModelClass::updateInstPositions(ID3D11Device* device)
 		}
 		else
 		{
-			if (dist.x >= 0.0f || dist.y != 0.0f || dist.z != 0.0f)
+			XMFLOAT3 dist;
+			dist.x = sqrt(instances[i + 999].position.x - instances[i].position.x);
+			dist.y = sqrt(instances[i + 999].position.y - instances[i].position.y);
+			dist.z = sqrt(instances[i + 999].position.z - instances[i].position.z);
+
+			if (dist.x >= 2.0f || dist.y >= 2.0f || dist.z >= 2.0f)
 			{
 				XMFLOAT3 desired;
 				desired.x = instances[i + 999].position.x /*target.x*/ - instances[i].position.x;

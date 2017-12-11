@@ -59,7 +59,7 @@ bool GraphicsClass::Init(HINSTANCE hinstance,int screenWidth, int screenHeight, 
 	}
 
 	//Set the initial pos and rot
-	m_Pos->SetPos(0.0f, 0.0f, -4.0f);
+	m_Pos->SetPos(0.0f, 0.0f, -15.0f);
 	m_Pos->SetRot(0.0f, 0.0f, 0.0f);
 
 	// Create the camera object.
@@ -70,7 +70,7 @@ bool GraphicsClass::Init(HINSTANCE hinstance,int screenWidth, int screenHeight, 
 	}
 
 	// Set the initial position of the camera.
-	m_Camera->SetPosition(0.0f, 0.0f, -4.0f);
+	m_Camera->SetPosition(0.0f, 0.0f, -15.0f);
 	m_Camera->SetRotation(0.0f, 0.0f, 0.0f);
 
 	// Create the model object.
