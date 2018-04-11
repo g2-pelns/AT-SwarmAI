@@ -1,11 +1,22 @@
-﻿Build started 18/11/2017 16:08:23.
-     1>Project "\\nstu-nas01.uwe.ac.uk\users2$\g2-pelns\Personal\Visual Studio 2015\Projects\SwarmAI\ConsoleApplication1\ConsoleApplication1.vcxproj" on node 2 (Build target(s)).
+﻿Build started 11/04/2018 16:57:02.
+     1>Project "D:\AT-SwarmAI\SwarmAI\ConsoleApplication1\ConsoleApplication1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /Od /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt ModelClass.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /Od /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt CameraClass.cpp ColorShaderClass.cpp D3DClass.cpp GraphicsClass.cpp InputClass.cpp Main.cpp ModelClass.cpp PositionClass.cpp SystemClass.cpp
+         SystemClass.cpp
+         PositionClass.cpp
          ModelClass.cpp
-     1>\\nstu-nas01.uwe.ac.uk\users2$\g2-pelns\personal\visual studio 2015\projects\swarmai\consoleapplication1\modelclass.cpp(25): warning C4101: 'result': unreferenced local variable
+     1>d:\at-swarmai\swarmai\consoleapplication1\modelclass.cpp(261): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>d:\at-swarmai\swarmai\consoleapplication1\modelclass.cpp(352): warning C4305: 'initializing': truncation from 'double' to 'float'
+         Main.cpp
+         InputClass.cpp
+         GraphicsClass.cpp
+     1>d:\at-swarmai\swarmai\consoleapplication1\graphicsclass.cpp(182): warning C4101: 'result': unreferenced local variable
+         D3DClass.cpp
+         ColorShaderClass.cpp
+         CameraClass.cpp
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"\\nstu-nas01.uwe.ac.uk\users2$\g2-pelns\Personal\Visual Studio 2015\Projects\SwarmAI\x64\Debug\ConsoleApplication1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"\\nstu-nas01.uwe.ac.uk\users2$\g2-pelns\Personal\Visual Studio 2015\Projects\SwarmAI\x64\Debug\ConsoleApplication1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"\\nstu-nas01.uwe.ac.uk\users2$\g2-pelns\Personal\Visual Studio 2015\Projects\SwarmAI\x64\Debug\ConsoleApplication1.lib" /MACHINE:X64 x64\Debug\CameraClass.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\AT-SwarmAI\SwarmAI\x64\Debug\ConsoleApplication1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\AT-SwarmAI\SwarmAI\x64\Debug\ConsoleApplication1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\AT-SwarmAI\SwarmAI\x64\Debug\ConsoleApplication1.lib" /MACHINE:X64 x64\Debug\CameraClass.obj
          x64\Debug\ColorShaderClass.obj
          x64\Debug\D3DClass.obj
          x64\Debug\GraphicsClass.obj
@@ -14,9 +25,10 @@
          x64\Debug\ModelClass.obj
          x64\Debug\PositionClass.obj
          x64\Debug\SystemClass.obj
-         ConsoleApplication1.vcxproj -> \\nstu-nas01.uwe.ac.uk\users2$\g2-pelns\Personal\Visual Studio 2015\Projects\SwarmAI\x64\Debug\ConsoleApplication1.exe
-     1>Done Building Project "\\nstu-nas01.uwe.ac.uk\users2$\g2-pelns\Personal\Visual Studio 2015\Projects\SwarmAI\ConsoleApplication1\ConsoleApplication1.vcxproj" (Build target(s)).
+         LINK : D:\AT-SwarmAI\SwarmAI\x64\Debug\ConsoleApplication1.exe not found or not built by the last incremental link; performing full link
+         ConsoleApplication1.vcxproj -> D:\AT-SwarmAI\SwarmAI\x64\Debug\ConsoleApplication1.exe
+     1>Done Building Project "D:\AT-SwarmAI\SwarmAI\ConsoleApplication1\ConsoleApplication1.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.77
+Time Elapsed 00:00:07.98
